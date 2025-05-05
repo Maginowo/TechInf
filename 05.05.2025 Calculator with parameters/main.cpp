@@ -5,14 +5,20 @@
 void parametersInfo(){
     printf("Command format: <number1> <operation> <number2>\n");
     printf("Please provide parameters.\n");
-    printf("Possible operations: add, sub\n");
+    printf("Possible operations: add, sub, mul, div\n");
 }
 
-int add(int number1, int number2){
+int add(const int number1, const int number2){
     return number1 + number2;
 }
-int subtract(int number1, int number2){
+int subtract(const int number1, const int number2){
     return number1 - number2;
+}
+int multiply(const int number1, const int number2){
+    return number1 * number2;
+}
+int divide(const int number1, const int number2){
+    return number1 / number2;
 }
 
 int main(int argc, char const *argv[]) {
@@ -30,6 +36,10 @@ int main(int argc, char const *argv[]) {
         printf("Result: %d", add(number1, number2));
     } else if(strcmp(argv[2], "sub") == 0){
         printf("Result: %d", subtract(number1, number2));
+    } else if(strcmp(argv[2], "mul") == 0){
+        printf("Result: %d", multiply(number1, number2));
+    } else if(strcmp(argv[2], "div") == 0){
+        printf("Result: %d", divide(number1, number2));
     }
     else {
         parametersInfo();

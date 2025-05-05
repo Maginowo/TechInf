@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-void formatText(){
+void parametersInfo(){
     printf("Command format: <number1> <operation> <number2>\n");
     printf("Please provide parameters.\n");
     printf("Possible operations: add\n");
@@ -15,7 +15,7 @@ int add(int number1, int number2){
 int main(int argc, char const *argv[]) {
     int number1, number2;
     if (argc < 4){
-        formatText();
+        parametersInfo();
         return 0;
     }
     number1 = atoi(argv[1]);
@@ -26,7 +26,7 @@ int main(int argc, char const *argv[]) {
     if(strcmp(argv[2], "add") == 0){
         printf("Result: %d", add(number1, number2));
     } else {
-        formatText();
+        parametersInfo();
     }
 
 

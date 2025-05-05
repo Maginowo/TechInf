@@ -51,7 +51,6 @@ int main(int argc, char const *argv[]) {
     printf("Operation: %d %s %d\n", number1, argv[2], number2);
     saveToLog(number1, argv[2], number2);
 
-    //logOperation();
 
     if(strcmp(argv[2], "add") == 0){
         printf("Result: %d", add(number1, number2));

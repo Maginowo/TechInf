@@ -1,11 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 void parametersInfo(){
     printf("Command format: <number1> <operation> <number2>\n");
     printf("Please provide parameters.\n");
     printf("Possible operations: add, sub, mul, div\n");
+}
+
+int saveToLog(const int number1, const char *operation, const int number2){
+    FILE * fptr;
+
+    fptr = fopen("..//plik.txt", "a");
+    if (!fptr){ return 1; }
+
+    // Creating current time char
+    time_t currentTime = time(NULL);
+    char time[50];
+    strftime(time, sizeof(time), "%A, %B, %d, %Y", localtime(&currentTime));
+
+    fprintf(fptr, "[%s]: %d %s %d\n", time, number1, operation, number2);
+    fclose(fptr);
+
+    return 0;
 }
 
 int add(const int number1, const int number2){
@@ -31,6 +49,9 @@ int main(int argc, char const *argv[]) {
     number2 = atoi(argv[3]);
 
     printf("Operation: %d %s %d\n", number1, argv[2], number2);
+    saveToLog(number1, argv[2], number2);
+
+    //logOperation();
 
     if(strcmp(argv[2], "add") == 0){
         printf("Result: %d", add(number1, number2));

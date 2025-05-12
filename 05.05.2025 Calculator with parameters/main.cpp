@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 
 void parametersInfo(){
     printf("Command format: <number1> <operation> <number2>\n");
     printf("Please provide parameters.\n");
-    printf("Possible operations: add, sub, mul, div\n");
+    printf("Possible operations: add, sub, mul, div, power\n");
 }
 
 int saveToLog(const int number1, const char *operation, const int number2){
@@ -38,9 +39,13 @@ int multiply(const int number1, const int number2){
 int divide(const int number1, const int number2){
     return number1 / number2;
 }
+int power(const int number1, const int number2){
+    int result = pow(number1, number2);
+    return result;
+}
 
 int main(int argc, char const *argv[]) {
-    int number1, number2;
+    int number1, number2, result;
     if (argc < 4){
         parametersInfo();
         return 0;
@@ -53,17 +58,21 @@ int main(int argc, char const *argv[]) {
 
 
     if(strcmp(argv[2], "add") == 0){
-        printf("Result: %d", add(number1, number2));
+        result = add(number1, number2);
     } else if(strcmp(argv[2], "sub") == 0){
-        printf("Result: %d", subtract(number1, number2));
+        result = subtract(number1, number2);
     } else if(strcmp(argv[2], "mul") == 0){
-        printf("Result: %d", multiply(number1, number2));
+        result = multiply(number1, number2);
     } else if(strcmp(argv[2], "div") == 0){
-        printf("Result: %d", divide(number1, number2));
+        result = divide(number1, number2);
+    } else if(strcmp(argv[2], "power") == 0){
+        result = power(number1, number2);
     }
     else {
         parametersInfo();
     }
+
+    printf("Result: %d", result);
 
 
     return 0;

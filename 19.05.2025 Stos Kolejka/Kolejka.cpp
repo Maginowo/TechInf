@@ -19,8 +19,8 @@ int Usun(void)
         int pierwszyWyraz = kolejka_table[0];
         for(int i = 0; i < KOLEJKA_SIZE; i++){
             kolejka_table[i] = kolejka_table[i+1];
+            kolejka_index--;
         }
-        kolejka_index--;
         return pierwszyWyraz;
     }
 

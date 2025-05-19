@@ -1,42 +1,41 @@
-#define KOLEJKA_SIZE 5
-int kolejka_table[KOLEJKA_SIZE] = { 0 };
-int kolejka_index = 0;
+#include <iostream>
+#define QUEUE_SIZE 5
+int queue_table[QUEUE_SIZE] = {0 };
+int queue_writeIndex = 0;
+int queue_readIndex = 0;
 
-int isKolejkaEmpty(void)
+int isQueueEmpty(void)
 {
-    return (kolejka_index == 0) ? 1 : 0;
+    return (queue_writeIndex == 0) ? 1 : 0;
 }
 
-int isKolejkaFull(void)
+int isQueueFull(void)
 {
-    return (kolejka_index == (KOLEJKA_SIZE)) ? 1 : 0;
+    return (queue_writeIndex == (QUEUE_SIZE)) ? 1 : 0;
 }
 
 int Usun(void)
 {
-    if (!isKolejkaEmpty())
+    if (!isQueueEmpty())
     {
-        int pierwszyWyraz = kolejka_table[0];
-        for(int i = 0; i < KOLEJKA_SIZE; i++){
-            kolejka_table[i] = kolejka_table[i+1];
-            kolejka_index--;
-        }
-        return pierwszyWyraz;
+        int queueRead = queue_table[queue_readIndex];
+        queue_readIndex = (queue_readIndex + 1) % QUEUE_SIZE;
+        return queueRead;
     }
 
-    return kolejka_table[0];
+    return queue_table[0];
 }
 
 int Pierwszy(void)
 {
-    return kolejka_table[0];
+    return queue_table[queue_readIndex];
 }
 
 void Wstaw(int val)
 {
-    if (!isKolejkaFull())
+    if (!isQueueFull())
     {
-        kolejka_table[kolejka_index] = val;
-        kolejka_index++;
+        queue_table[queue_writeIndex] = val;
+        queue_writeIndex = (queue_writeIndex + 1) % QUEUE_SIZE;
     }
 }

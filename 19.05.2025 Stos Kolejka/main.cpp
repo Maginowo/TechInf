@@ -81,7 +81,7 @@ int main()
                 break;
 
             case 12:
-                if ( !isKolejkaFull() ){
+                if ( !isQueueFull() ){
                     printf("Podaj wartosc: ");
                     scanf("%d", &tempKolejka);
                     Wstaw(tempKolejka);
@@ -93,7 +93,7 @@ int main()
                 break;
 
             case 22:
-                if (!isKolejkaEmpty()) {
+                if (!isQueueEmpty()) {
                     tempKolejka = Pierwszy();
                     printf("Odczytana wartosc: %d", tempKolejka);
                 }
@@ -104,7 +104,7 @@ int main()
                 break;
 
             case 32:
-                if (!isKolejkaEmpty()) {
+                if (!isQueueEmpty()) {
                     tempKolejka = Usun();
                     printf("Odczytana wartosc: %d", tempKolejka);
                 }
@@ -114,7 +114,7 @@ int main()
                 break;
 
             case 42:
-                if (isKolejkaEmpty()) {
+                if (isQueueEmpty()) {
                     printf("Kolejka jest pusta.\n");
                 }
                 else {
@@ -123,7 +123,7 @@ int main()
                 break;
 
             case 52:
-                if (isKolejkaFull()) {
+                if (isQueueFull()) {
                     printf("Kolejka jest pelna.\n");
                 }
                 else {

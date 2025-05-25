@@ -3,15 +3,16 @@
 int queue_table[QUEUE_SIZE] = {0 };
 int queue_writeIndex = 0;
 int queue_readIndex = 0;
+int queue_elements = 0;
 
 int isQueueEmpty(void)
 {
-    return (queue_writeIndex == 0) ? 1 : 0;
+    return (queue_elements == 0) ? 1 : 0;
 }
 
 int isQueueFull(void)
 {
-    return (queue_writeIndex == (QUEUE_SIZE)) ? 1 : 0;
+    return (queue_elements == (QUEUE_SIZE)) ? 1 : 0;
 }
 
 int Usun(void)
@@ -20,6 +21,7 @@ int Usun(void)
     {
         int queueRead = queue_table[queue_readIndex];
         queue_readIndex = (queue_readIndex + 1) % QUEUE_SIZE;
+        queue_elements--;
         return queueRead;
     }
 
@@ -37,5 +39,6 @@ void Wstaw(int val)
     {
         queue_table[queue_writeIndex] = val;
         queue_writeIndex = (queue_writeIndex + 1) % QUEUE_SIZE;
+        queue_elements++;
     }
 }

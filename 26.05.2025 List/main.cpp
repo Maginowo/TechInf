@@ -73,7 +73,7 @@ int main() {
                 printf("\n%d elements\n\n", getNodesCount());
                 break;
 
-            case 0:
+            case 7:
                 freeList();
                 return 0;
 

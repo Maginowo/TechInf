@@ -1,5 +1,21 @@
 #include <iostream>
 #include "Point.h"
+
+Point::Point() {
+    std::cout << "Wywolano konstruktor domyslny\n";
+    m_name = "bez nazwy";
+    m_x = 1;
+    m_y = 1;
+}
+Point::Point(const std::string& name, double x, double y) {
+    std::cout << "Wywolano konstruktor z argumentem " << name << std::endl;
+    m_name = name;
+    m_x = x;
+    m_y = y;
+}
+Point::~Point() {
+    std::cout << "Likwiduje " << m_name << std::endl;
+}
 void Point::setName(const std::string& name) {
     m_name = name;
 }

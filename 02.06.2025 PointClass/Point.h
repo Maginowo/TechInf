@@ -7,6 +7,9 @@ private:
     double m_x;
     double m_y;
 public:
+    Point();
+    Point(const std::string& name, double x = 0, double y = 0);
+    ~Point();
     void setName(const std::string& name);
     void setXY(double x, double y);
     double getX();

@@ -7,4 +7,5 @@ add_executable(19.05.2025 main.cpp
         Stack.cpp
         Stack.h
         Kolejka.h
-        Kolejka.cpp)
+        Kolejka.cpp
+        "../02.06.2025 PointClass/point.cpp")

@@ -14,5 +14,7 @@ public:
     void setXY(double x, double y);
     double getX();
     double getY();
-    void show();
+    void show() const;
+    double distance(const Point& p) const;
+    const Point & distant(const Point& p) const;
 };

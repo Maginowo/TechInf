@@ -2,15 +2,23 @@
 #include "Point.h"
 using namespace std;
 
-int main() {
-    Point p1 = Point("P1", 0, 0);
-    Point p2 = Point("P2", 30, 40);
+int main()
+{
+    Point points[10] = {
+        Point("P1", 0, 0),
+        Point("P2", 10, 20),
+        Point("P3", 30, 40)
+        };
+    cout << "Istnieje " << Point::numberOfPoints() << " punktow."<< endl;
+    for (int i = 0; i < 10; i++)
+    {
+        points[i].show();
+    }
 
-    p1.show();
-    p2.show();
-
-    cout << "Odleglosc pomiedzy punktami wynosi " << p1.distance(p2) << endl;
-    const Point& p = p1.distant(p2);
-    cout << "Punkt bardziej oddalony od poczatku ukladu wspolrzednych to: " << endl;
-    p.show();
+    {
+        Point p1, p2, p3;
+        cout << endl;
+        cout << "Teraz istnieje " << Point::numberOfPoints() << " punktow." << endl;
+    }
+    cout << "A teraz istnieje " << Point::numberOfPoints() << " punktow." << endl;
 }

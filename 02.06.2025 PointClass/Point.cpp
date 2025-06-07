@@ -2,20 +2,22 @@
 #include "Point.h"
 #include <math.h>
 
+int Point::m_numberOfPoints = 0;
+
 Point::Point() {
-    //std::cout << "Wywolano konstruktor domyslny\n";
     m_name = "bez nazwy";
     m_x = 1;
     m_y = 1;
+    Point::m_numberOfPoints++;
 }
 Point::Point(const std::string& name, double x, double y) {
-    //std::cout << "Wywolano konstruktor z argumentem " << name << std::endl;
     m_name = name;
     m_x = x;
     m_y = y;
+    Point::m_numberOfPoints++;
 }
 Point::~Point() {
-    //std::cout << "Likwiduje " << m_name << std::endl;
+    Point::m_numberOfPoints--;
 }
 void Point::setName(const std::string& name) {
     m_name = name;
@@ -44,4 +46,7 @@ const Point& Point::distant(const Point& p) const {
         return *this;
 
     return p;
+}
+int Point::numberOfPoints() {
+    return Point::m_numberOfPoints;
 }

@@ -5,8 +5,8 @@
 Point::Point() {
     //std::cout << "Wywolano konstruktor domyslny\n";
     m_name = "bez nazwy";
-    m_x = 0;
-    m_y = 0;
+    m_x = 1;
+    m_y = 1;
 }
 Point::Point(const std::string& name, double x, double y) {
     //std::cout << "Wywolano konstruktor z argumentem " << name << std::endl;
@@ -39,7 +39,9 @@ double Point::distance(const Point& p) const {
 const Point& Point::distant(const Point& p) const {
     double d = sqrt( m_x * m_x + m_y * m_y);
     double dp = sqrt(p.m_x * p.m_x + p.m_y * p.m_y);
+
     if (d > dp)
         return *this;
+
     return p;
 }

@@ -8,6 +8,8 @@
 
 int main()
 {
+    Figure* figureArray[6];
+
     Rectangle R1("R1", 2.0, 3.0);
     Rectangle R2("R2", 3.0, 4.0);
     Square S1("S1", 5.0);
@@ -15,32 +17,22 @@ int main()
     Triangle T1("T1", 5, 10, 12);
     Triangle T2("T2", 3, 4, 5);
 
-    R1.Info();
-    std::cout << std::endl;
-    R2.Info();
-    std::cout << std::endl;
-    C1.Info();
-    std::cout << std::endl;
-    S1.Info();
-    std::cout << std::endl;
-    T1.Info();
-    std::cout << std::endl;
-    T2.Info();
+    figureArray[0] = &R1;
+    figureArray[1] = &R2;
+    figureArray[2] = &S1;
+    figureArray[3] = &C1;
+    figureArray[4] = &T1;
+    figureArray[5] = &T2;
 
-    std::cout << std::endl << "======" << std::endl << "Wykorzystanie wskaznika" << std::endl;
-    Figure* pointer_s = &S1;
-    Figure* pointer_r = &R1;
-    std::cout << std::endl;
-    pointer_s->Info();
-    std::cout << std::endl;
-    pointer_r->Info();
+    Figure& figureRef = *figureArray[0];
+    for(int i=0; i<6; i++){
+        //figureArray[i]->Info(); // Using the array directly
 
-    std::cout << std::endl << "======" << std::endl << "Wykorzystanie referencji" << std::endl;
-    Figure& ref_s = S1;
-    Figure& ref_r = R1;
-    std::cout << std::endl;
-    ref_s.Info();
-    std::cout << std::endl;
-    ref_r.Info();
+        // Using the reference, from the array anyway tho
+        figureRef = *figureArray[i];
+        figureRef.Info();
+
+        std::cout << std::endl;
+    }
 
 }

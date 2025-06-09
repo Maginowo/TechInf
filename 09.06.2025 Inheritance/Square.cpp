@@ -7,6 +7,13 @@
 Square::Square(string name, float a) : Figure(name)
 {
     m_a = a;
+
+    m_area = 0;
+    m_perimeter = 0;
+    Calculations();
+}
+
+void Square::Calculations() {
     m_area = m_a * m_a;
     m_perimeter = 4 * m_a;
 }

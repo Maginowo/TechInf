@@ -8,6 +8,14 @@ Rectangle::Rectangle(string name, float a, float b) : Figure(name)
 {
     m_a = a;
     m_b = b;
+
+    m_area = 0;
+    m_perimeter = 0;
+    Calculations();
+}
+
+void Rectangle::Calculations()
+{
     m_area = m_a * m_b;
     m_perimeter = 2 * m_a + 2 * m_b;
 }

@@ -14,6 +14,7 @@ private:
     float m_a;
     float m_area;
     float m_perimeter;
+    virtual void Calculations();
 
 public:
     Square(string name = "", float a = 0);

@@ -11,6 +11,8 @@ class Triangle : public Figure
 {
 private:
     float m_a, m_b, m_c;
+    float m_area, m_perimeter;
+    virtual void Calculations();
 
 public:
     Triangle(string name = "", float a = 0, float b = 0, float c = 0);

@@ -17,6 +17,7 @@ class Figure
 {
 private:
     string m_name;
+    virtual void Calculations() = 0;
 protected:
     string Name() const;
 public:

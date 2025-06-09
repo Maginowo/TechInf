@@ -15,6 +15,7 @@ private:
     float m_b;
     float m_area;
     float m_perimeter;
+    virtual void Calculations();
 
 public:
     Rectangle(string name = "", float a = 0, float b = 0);

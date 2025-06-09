@@ -8,16 +8,25 @@
 Circle::Circle(string name, float r) : Figure(name)
 {
     m_r = r;
+
+    m_area = 0;
+    m_perimeter = 0;
+    Calculations();
+}
+
+void Circle::Calculations() {
+    m_area = M_PI * m_r * m_r;
+    m_perimeter = 2 * M_PI * m_r;
 }
 
 float Circle::Area() const
 {
-    return M_PI * m_r * m_r;
+    return m_area;
 }
 
 float Circle::Perimeter() const
 {
-    return 2 * M_PI * m_r;
+    return m_perimeter;
 }
 
 void Circle::Info() const

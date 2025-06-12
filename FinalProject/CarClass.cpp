@@ -1,0 +1,49 @@
+#include "CarClass.h"
+#include <iostream>
+
+int CarClass::m_numberOfCarEntries = 0;
+
+CarClass::CarClass() {
+    m_brand = "None";
+    m_ownerName = "None";
+    m_value = 0;
+    m_mileage = 0;
+    m_year = 0;
+    CarClass::m_numberOfCarEntries++;
+
+}
+CarClass::CarClass(const std::string& brand, const std::string& ownerName, double value, double mileage, int year) {
+    m_brand = brand;
+    m_ownerName = ownerName;
+    m_value = value;
+    m_mileage = mileage;
+    m_year = year;
+    CarClass::m_numberOfCarEntries++;
+}
+CarClass::~CarClass() {
+    CarClass::m_numberOfCarEntries--;
+}
+
+void CarClass::setBrand(const std::string& brand) {
+    m_brand = brand;
+}
+void CarClass::setOwnerName(const std::string& ownerName) {
+    m_ownerName = ownerName;
+}
+void CarClass::setValue(double value) {
+    m_value = value;
+}
+void CarClass::setMileage(double mileage) {
+    m_mileage = mileage;
+}
+void CarClass::setYear(int year) {
+    m_year = year;
+}
+
+void CarClass::printInfo() {
+    std::cout << "Brand: " << m_brand << std::endl;
+    std::cout << "OwnerName: " << m_ownerName << std::endl;
+    std::cout << "Value: " << m_value << std::endl;
+    std::cout << "Mileage: " << m_mileage << std::endl;
+    std::cout << "Year: " << m_year << std::endl;
+}

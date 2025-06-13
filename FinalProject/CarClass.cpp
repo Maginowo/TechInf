@@ -17,7 +17,9 @@ CarClass::CarClass(const std::string& brand, const std::string& ownerName, doubl
     m_mileage = mileage;
     m_year = year;
 }
-CarClass::~CarClass() = default;
+CarClass::~CarClass(){
+
+}
 
 void CarClass::setBrand(const std::string& brand) {
     m_brand = brand;
@@ -46,9 +48,9 @@ void CarClass::printInfo() const {
 int CarClass::numberOfCarEntries() {
     return m_numberOfCarEntries;
 }
-void CarClass::incrementNumberOfCarEntries() {
+void CarClass::incrementNumberOfCarEntries(){
     m_numberOfCarEntries++;
 }
-void CarClass::decrementNumberOfCarEntries() {
+void CarClass::decrementNumberOfCarEntries(){
     m_numberOfCarEntries--;
 }

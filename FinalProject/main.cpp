@@ -21,14 +21,23 @@ int main() {
                     cout << "There are no car entries" << endl;
                     break;
                 }
-
-                for (int i = 0; i < CarClass::numberOfCarEntries(); i++) {
-                    displayCarInfo(carEntries[i]);
-                }
+                displayCarInfo(carEntries);
                 break;
 
             case 2:
+                addQuickCarEntry(carEntries, maxNumberOfEntries);
+                break;
+
+            case 3:
                 addCarEntry(carEntries, maxNumberOfEntries);
+                break;
+
+            case 4:
+                removeCarEntry(carEntries);
+                break;
+
+            case 5:
+                editCarEntry(carEntries);
                 break;
 
             case 0:

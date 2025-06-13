@@ -11,14 +11,14 @@ void displayMenu() {
     cout << endl;
     cout << "Enter your choice: ";
 }
-
 void displayCarInfo(const CarClass& carEntry) {
     carEntry.printInfo();
     cout << endl;
 }
+
 void addCarEntry(CarClass carEntriesArray[], int maxNumberOfEntries) {
     if (CarClass::numberOfCarEntries() == maxNumberOfEntries) {
-        cout << "Max number of entries has been reached. Current max: " << maxNumberOfEntries << endl;
+        cout << "Max number of entries has been reached. Current max: " << maxNumberOfEntries << ". Trying to allocate more memory..." << endl;
     } else {
         struct carInfo tempCarInfo;
 

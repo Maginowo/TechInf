@@ -8,7 +8,7 @@ int main() {
     int option = 0;
     int maxNumberOfEntries = 3;
 
-    CarClass carEntriesArray[maxNumberOfEntries];
+    CarClass *carEntriesArray;
 
     while (true){
         displayMenu();

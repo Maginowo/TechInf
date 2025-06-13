@@ -8,7 +8,7 @@ int main() {
     int option = 0;
     int maxNumberOfEntries = 3;
 
-    CarClass *carEntriesArray;
+    CarClass *carEntries = (CarClass *)malloc(sizeof(CarClass) * maxNumberOfEntries);
 
     while (true){
         displayMenu();
@@ -23,15 +23,16 @@ int main() {
                 }
 
                 for (int i = 0; i < CarClass::numberOfCarEntries(); i++) {
-                    displayCarInfo(carEntriesArray[i]);
+                    displayCarInfo(carEntries[i]);
                 }
                 break;
 
             case 2:
-                addCarEntry(carEntriesArray, maxNumberOfEntries);
+                addCarEntry(carEntries, maxNumberOfEntries);
                 break;
 
             case 0:
+                free(carEntries);
                 return 0;
 
             default:
@@ -39,5 +40,4 @@ int main() {
                 break;
         }
     }
-    return 0;
 }

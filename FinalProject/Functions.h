@@ -13,7 +13,7 @@ struct carInfo{
 void displayMenu();
 void displayCarInfo(const CarClass& carEntry);
 
-void addCarEntry(CarClass carEntriesArray[], int maxNumberOfEntries);
+void addCarEntry(CarClass *carEntries, int maxNumberOfEntries);
 
 
 

@@ -16,9 +16,9 @@ void displayCarInfo(const CarClass& carEntry) {
     cout << endl;
 }
 
-void addCarEntry(CarClass carEntriesArray[], int maxNumberOfEntries) {
+void addCarEntry(CarClass *carEntries, int maxNumberOfEntries) {
     if (CarClass::numberOfCarEntries() == maxNumberOfEntries) {
-        cout << "Max number of entries has been reached. Current max: " << maxNumberOfEntries << ". Trying to allocate more memory..." << endl;
+        cout << "Max number of entries has been reached. Current max: " << maxNumberOfEntries << endl;
     } else {
         struct carInfo tempCarInfo;
 
@@ -32,7 +32,7 @@ void addCarEntry(CarClass carEntriesArray[], int maxNumberOfEntries) {
         cin >> tempCarInfo.carMileage;
         cout << "Car year: " << endl;
         cin >> tempCarInfo.carYear;
-        carEntriesArray[CarClass::numberOfCarEntries()] = CarClass(tempCarInfo.carBrand, tempCarInfo.carOwner, tempCarInfo.carValue, tempCarInfo.carMileage, tempCarInfo.carYear);
+        new (&carEntries[CarClass::numberOfCarEntries()]) CarClass(tempCarInfo.carBrand, tempCarInfo.carOwner, tempCarInfo.carValue, tempCarInfo.carMileage, tempCarInfo.carYear);
         CarClass::incrementNumberOfCarEntries();
     }
 }

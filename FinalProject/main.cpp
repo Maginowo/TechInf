@@ -1,35 +1,41 @@
 #include <iostream>
 #include "CarClass.h"
+#include "Functions.h"
 
-
-void menu() {
-    std::cout << std::endl << "======= MENU =======" << std::endl;
-    std::cout << "1. Info" << std::endl;
-    std::cout << "2. Exit" << std::endl;
-    std::cout << std::endl;
-    std::cout << "Enter your choice: ";
-}
+using namespace std;
 
 int main() {
     int option = 0;
+    int maxNumberOfEntries = 3;
 
-    CarClass carArray[10];
-    carArray[1] = CarClass("VW", "John Johnald", 30000, 500, 2012);
+    CarClass carEntriesArray[maxNumberOfEntries];
 
     while (true){
-        menu();
-        std::cin >> option;
+        displayMenu();
+        cin >> option;
+        cout << endl;
 
         switch (option) {
             case 1:
-                carArray[1].printInfo();
+                if (CarClass::numberOfCarEntries() == 0) {
+                    cout << "There are no car entries" << endl;
+                    break;
+                }
+
+                for (int i = 0; i < CarClass::numberOfCarEntries(); i++) {
+                    displayCarInfo(carEntriesArray[i]);
+                }
                 break;
 
             case 2:
+                addCarEntry(carEntriesArray, maxNumberOfEntries);
+                break;
+
+            case 0:
                 return 0;
 
             default:
-                std::cout << "Invalid choice" << std::endl;
+                cout << "Invalid choice" << endl;
                 break;
         }
     }

@@ -11,7 +11,9 @@ struct carInfo{
 };
 
 void displayMenu();
-void displayCarInfo(const CarClass *carEntry);
+void displayAllEntries(const CarClass *carEntry);
+void displaySpecificEntry(const CarClass *carEntry);
+void getCarEntry(const CarClass *carEntries);
 
 void addQuickCarEntry(CarClass *carEntry, int maxNumberOfEntries);
 void addCarEntry(CarClass *carEntries, int maxNumberOfEntries);

@@ -5,22 +5,114 @@ using namespace std;
 
 void displayMenu() {
     cout << endl << "======= MENU =======" << endl;
-    cout << "1. List" << endl;
-    cout << "2. Add quick entry" << endl;
-    cout << "3. Add full entry" << endl;
-    cout << "4. Remove entry" << endl;
-    cout << "5. Editing entry" << endl;
+    cout << "1. List all entries" << endl;
+    cout << "2. List specific entry" << endl;
+    cout << "3. Add quick entry" << endl;
+    cout << "4. Add full entry" << endl;
+    cout << "5. Remove entry" << endl;
+    cout << "6. Editing entry" << endl;
+    cout << "7. Search for entry with highest/lowest value" << endl;
     cout << "0. Exit" << endl;
     cout << endl;
     cout << "Enter your choice: ";
 }
-void displayCarInfo(const CarClass* carEntry) {
+void displayAllEntries(const CarClass* carEntry) {
     for (int i = 0; i < CarClass::numberOfCarEntries(); i++) {
         cout << "ENTRY " << i + 1 << endl;
         carEntry[i].printInfo();
         cout << endl;
     }
 }
+void displaySpecificEntry(const CarClass *carEntry) {
+    int entryIndex = 0;
+    // Showing possible input range
+    cout << "Select entry from 1 to " << CarClass::numberOfCarEntries() << endl;
+
+    // Asking user for index in range
+    while (entryIndex < 1 || entryIndex > CarClass::numberOfCarEntries()) {
+        cout << "Enter entry index: " << endl;
+        cin >> entryIndex;
+    }
+    carEntry[entryIndex - 1].printInfo();
+}
+void getCarEntry(const CarClass *carEntries) {
+    int selection = 0, search = 0; // User input ints
+    double resultValue = 0;
+    int resultIndex = 0;
+
+    // Get search category input from user
+    cout << "Search for" << endl << "1. Highest" << endl << "2. Lowest" << endl;
+    while (search < 1 || search > 2) {
+        cin >> search;
+    }
+
+    // Get which value we will be searching for to be highest/lowest
+    cout << "Possible values to search for:" << endl;
+    cout << "1. Value" << endl;
+    cout << "2. Mileage" << endl;
+    cout << "3. Year" << endl;
+    while (selection < 1 || selection > 3) {
+        cin >> selection;
+    }
+
+    // Confirm what we are searching for and search for it
+    cout << "We are searching for the ";
+    (search == 1) ? cout << "highest " : cout << "lowest ";
+    cout << "value of ";
+    switch (selection) {
+        case 1:
+            cout << "value." << endl;
+
+            resultValue = carEntries[0].getValue();
+            if (search == 1) {
+                for (int i = 0; i < CarClass::numberOfCarEntries(); i++) {
+                    if (carEntries[i].getValue() > resultValue) { resultValue = carEntries[i].getValue(); resultIndex = i; } // If current entry value is higher than that in the resultValue, set it to it
+                }
+            } else {
+                for (int i = 0; i < CarClass::numberOfCarEntries(); i++) {
+                    if (carEntries[i].getValue() < resultValue) { resultValue = carEntries[i].getValue(); resultIndex = i; } // If current entry value is lower than that in the resultValue, set it to it
+                }
+            }
+
+            break;
+
+        case 2:
+            cout << "mileage." << endl;
+
+            resultValue = carEntries[0].getMileage();
+            if (search == 1) {
+                for (int i = 0; i < CarClass::numberOfCarEntries(); i++) {
+                    if (carEntries[i].getMileage() > resultValue) { resultValue = carEntries[i].getMileage(); resultIndex = i; } // If current entry value is higher than that in the resultValue, set it to it
+                }
+            } else {
+                for (int i = 0; i < CarClass::numberOfCarEntries(); i++) {
+                    if (carEntries[i].getMileage() < resultValue) { resultValue = carEntries[i].getMileage(); resultIndex = i; } // If current entry value is lower than that in the resultValue, set it to it
+                }
+            }
+
+            break;
+
+        case 3:
+            cout << "year." << endl;
+
+            resultValue = carEntries[0].getYear();
+            if (search == 1) {
+                for (int i = 0; i < CarClass::numberOfCarEntries(); i++) {
+                    if (carEntries[i].getYear() > resultValue) { resultValue = carEntries[i].getYear(); resultIndex = i; } // If current entry value is higher than that in the resultValue, set it to it
+                }
+            } else {
+                for (int i = 0; i < CarClass::numberOfCarEntries(); i++) {
+                    if (carEntries[i].getYear() < resultValue) { resultValue = carEntries[i].getYear(); resultIndex = i; } // If current entry value is lower than that in the resultValue, set it to it
+                }
+            }
+
+            break;
+    }
+    cout << "The result is: " << resultValue << " in entry " << resultIndex + 1 << "." << endl;
+    carEntries[resultIndex].printInfo();
+}
+
+
 
 void addQuickCarEntry(CarClass *carEntries, const int maxNumberOfEntries) {
     if (CarClass::numberOfCarEntries() == maxNumberOfEntries) {

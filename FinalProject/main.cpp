@@ -18,26 +18,45 @@ int main() {
         switch (option) {
             case 1:
                 if (CarClass::numberOfCarEntries() == 0) {
-                    cout << "There are no car entries" << endl;
+                    cout << "There are no car entries." << endl;
                     break;
                 }
-                displayCarInfo(carEntries);
+                displayAllEntries(carEntries);
                 break;
 
             case 2:
-                addQuickCarEntry(carEntries, maxNumberOfEntries);
+                if (CarClass::numberOfCarEntries() == 0) {
+                    cout << "There are no car entries." << endl;
+                    break;
+                }
+                displaySpecificEntry(carEntries);
                 break;
 
             case 3:
-                addCarEntry(carEntries, maxNumberOfEntries);
+                addQuickCarEntry(carEntries, maxNumberOfEntries);
                 break;
 
             case 4:
-                removeCarEntry(carEntries);
+                addCarEntry(carEntries, maxNumberOfEntries);
                 break;
 
             case 5:
+                removeCarEntry(carEntries);
+                break;
+
+            case 6:
                 editCarEntry(carEntries);
+                break;
+
+            case 7:
+                if (CarClass::numberOfCarEntries() == 0) {
+                    cout << "There are no car entries." << endl;
+                    break;
+                } else if (CarClass::numberOfCarEntries() == 1) {
+                    cout << "There is only one entry, nothing to search for." << endl;
+                    break;
+                }
+                getCarEntry(carEntries);
                 break;
 
             case 0:

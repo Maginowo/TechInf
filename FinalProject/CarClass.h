@@ -27,6 +27,10 @@ public:
     void setMileage(double mileage);
     void setYear(int year);
 
+    double getValue() const;
+    double getMileage() const;
+    int getYear() const;
+
     void printInfo() const;
 
 };

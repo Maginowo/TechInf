@@ -27,6 +27,8 @@ public:
     void setMileage(double mileage);
     void setYear(int year);
 
+    std::string getBrand() const;
+    std::string getOwnerName() const;
     double getValue() const;
     double getMileage() const;
     int getYear() const;

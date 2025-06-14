@@ -1,5 +1,6 @@
 #include "Functions.h"
 #include "CarClass.h"
+#include <string.h>
 
 using namespace std;
 
@@ -12,6 +13,8 @@ void displayMenu() {
     cout << "5. Remove entry" << endl;
     cout << "6. Editing entry" << endl;
     cout << "7. Search for entry with highest/lowest value" << endl;
+    cout << "8. Save entries data to file" << endl;
+    cout << "9. Load entries from file" << endl;
     cout << "0. Exit" << endl;
     cout << endl;
     cout << "Enter your choice: ";
@@ -222,4 +225,83 @@ void editCarEntry(CarClass *carEntries) {
         default:
             cout << "Invalid selection. Aborting." << endl;
     }
+}
+
+int saveEntriesToFile(const CarClass *carEntries, const int maxNumberOfEntries) {
+    FILE * fptr;
+
+    fptr = fopen("..//EntriesData.txt", "w");
+    if (!fptr){ return 1; }
+
+    fprintf(fptr, "%d\n", maxNumberOfEntries);
+    fprintf(fptr, "%d\n", CarClass::numberOfCarEntries());
+    for(int i = 0; i<CarClass::numberOfCarEntries(); i++){
+        fprintf(fptr, "%s\n", carEntries[i].getBrand().c_str());
+        fprintf(fptr, "%s\n", carEntries[i].getOwnerName().c_str());
+        fprintf(fptr, "%f\n", carEntries[i].getValue());
+        fprintf(fptr, "%f\n", carEntries[i].getMileage());
+        fprintf(fptr, "%d\n", carEntries[i].getYear());
+    }
+
+    fclose(fptr);
+
+    return 0;
+}
+int loadEntriesFromFile(CarClass *carEntries, int *maxNumberOfEntries) {
+    struct carInfo tempCarInfo;
+    int numberOfEntries = 0;
+    FILE * fptr = nullptr;
+    int currentLine = 0;
+    char tempChar[128];
+
+    fptr = fopen("..//EntriesData.txt", "r");
+    if (!fptr){ return 1; }
+
+    fgets(tempChar, 128, fptr);
+    *maxNumberOfEntries = atoi(tempChar);
+    fgets(tempChar, 128, fptr);
+    numberOfEntries = atoi(tempChar);
+    cout << tempChar << endl;
+
+    // for (int i = 0; i < numberOfEntries; ++i) {
+    //     CarClass::incrementNumberOfCarEntries();
+    // }
+    while ((!feof(fptr)) && (currentLine != numberOfEntries)) {
+        // Reading the brand
+        fgets(tempChar, 128, fptr);
+        tempChar[strcspn(tempChar, "\n")] = '\0';
+        tempCarInfo.carBrand = tempChar;
+
+        // Reading the owner
+        fgets(tempChar, 128, fptr);
+        tempChar[strcspn(tempChar, "\n")] = '\0';
+        tempCarInfo.carOwner = tempChar;
+
+        // Reading the value
+        fgets(tempChar, 128, fptr);
+        tempChar[strcspn(tempChar, "\n")] = '\0';
+        tempCarInfo.carValue = atof(tempChar);
+
+        // Reading the mileage
+        fgets(tempChar, 128, fptr);
+        tempChar[strcspn(tempChar, "\n")] = '\0';
+        tempCarInfo.carMileage = atof(tempChar);
+
+        // Reading the year
+        fgets(tempChar, 128, fptr);
+        tempChar[strcspn(tempChar, "\n")] = '\0';
+        tempCarInfo.carYear = atoi(tempChar);
+
+        cout << tempCarInfo.carBrand << endl;
+
+        new (&carEntries[CarClass::numberOfCarEntries()]) CarClass(tempCarInfo.carBrand, tempCarInfo.carOwner, tempCarInfo.carValue, tempCarInfo.carMileage, tempCarInfo.carYear);
+        CarClass::incrementNumberOfCarEntries();
+
+        currentLine++;
+    }
+
+
+    fclose(fptr);
+
+    return 0;
 }

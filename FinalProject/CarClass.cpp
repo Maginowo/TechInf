@@ -37,6 +37,12 @@ void CarClass::setYear(const int year) {
     m_year = year;
 }
 
+std::string CarClass::getBrand() const {
+    return m_brand;
+}
+std::string CarClass::getOwnerName() const {
+    return m_ownerName;
+}
 double CarClass::getValue() const {
     return m_value;
 }

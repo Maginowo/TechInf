@@ -5,7 +5,7 @@
 using namespace std;
 
 int main() {
-    int option = 0;
+    int option = 0, errorCode = 0;
     int maxNumberOfEntries = 3;
 
     CarClass *carEntries = (CarClass *)malloc(sizeof(CarClass) * maxNumberOfEntries);
@@ -57,6 +57,19 @@ int main() {
                     break;
                 }
                 getCarEntry(carEntries);
+                break;
+
+            case 8:
+                errorCode = saveEntriesToFile(carEntries, maxNumberOfEntries);
+                if(!errorCode){ printf("Entries saved to file successfully.\n"); }
+                else{ printf("Something went wrong...\n"); }
+                break;
+
+            case 9:
+                errorCode = loadEntriesFromFile(carEntries, &maxNumberOfEntries);
+                if(!errorCode){ printf("Entries loaded successfully.\n"); }
+                else{ printf("Something went wrong...\n"); }
+
                 break;
 
             case 0:

@@ -15,6 +15,7 @@ void displayMenu() {
     cout << "7. Search for entry with highest/lowest value" << endl;
     cout << "8. Save entries data to file" << endl;
     cout << "9. Load entries from file" << endl;
+    cout << "10. Change max number of entries" << endl << endl;
     cout << "0. Exit" << endl;
     cout << endl;
     cout << "Enter your choice: ";
@@ -171,11 +172,12 @@ void removeCarEntry(CarClass *carEntries) {
             cout << "Enter entry index: " << endl;
             cin >> removingIndex;
         }
+        removingIndex--;
 
-        carEntries[removingIndex - 1].~CarClass(); // destroying
+        carEntries[removingIndex].~CarClass(); // destroying
 
         // Shifting the entries for efficient memory usage
-        for (int i = removingIndex - 1; i < CarClass::numberOfCarEntries() - 1; ++i) {
+        for (int i = removingIndex; i < CarClass::numberOfCarEntries() - 1; ++i) {
             new (&carEntries[i]) CarClass(carEntries[i + 1]);
             carEntries[i + 1].~CarClass();
         }
@@ -249,7 +251,8 @@ int saveEntriesToFile(const CarClass *carEntries, const int maxNumberOfEntries) 
 }
 int loadEntriesFromFile(CarClass **carEntries, int *maxNumberOfEntries) {
     struct carInfo tempCarInfo;
-    int numberOfEntries = 0;
+    int actualNumberOfEntries = 0, newMaxNumberOfEntries = 0;
+    int numberOfEntriesToDelete = CarClass::numberOfCarEntries();
     FILE * fptr = nullptr;
     int currentLine = 0;
     char tempChar[128];
@@ -259,18 +262,33 @@ int loadEntriesFromFile(CarClass **carEntries, int *maxNumberOfEntries) {
     if (!fptr){ return 1; }
 
     fgets(tempChar, 128, fptr); // Read max size from the file
-    *maxNumberOfEntries = atoi(tempChar);
+    newMaxNumberOfEntries = atoi(tempChar);
     fgets(tempChar, 128, fptr); // Read how many entries there are to load
-    numberOfEntries = atoi(tempChar);
+    actualNumberOfEntries = atoi(tempChar);
+
+    // Destroying existing objects before loading
+    for (int i = 0; i < numberOfEntriesToDelete; i++) {
+        (*carEntries)[i].~CarClass();
+        CarClass::decrementNumberOfCarEntries();
+    }
 
     // Set the size of the carEntries to the one in the file
-    CarClass *tempEntries = (CarClass*) realloc(*carEntries, (*maxNumberOfEntries) * sizeof(CarClass));
-    if (!tempEntries){ fclose(fptr); return 2; }
-    *carEntries = tempEntries;
-    cout << "The current max number of entries is " << *maxNumberOfEntries << endl;
+    if (*maxNumberOfEntries != newMaxNumberOfEntries) {
+        int errorCode = changeMaxNumberOfEntries(carEntries, maxNumberOfEntries, newMaxNumberOfEntries, true);
+        switch (errorCode) {
+            case 1:
+                cout << "Reallocation failed." << endl;
+                fclose(fptr);
+                return 1;
+                break;
+            default:
+                // It worked
+                break;
+        }
+    }
 
     // Read the file and create all objects
-    while ((!feof(fptr)) && (currentLine != numberOfEntries)) {
+    while ((!feof(fptr)) && (currentLine != actualNumberOfEntries)) {
         // Reading the brand
         fgets(tempChar, 128, fptr);
         tempChar[strcspn(tempChar, "\n")] = '\0';
@@ -305,5 +323,38 @@ int loadEntriesFromFile(CarClass **carEntries, int *maxNumberOfEntries) {
 
     fclose(fptr);
 
+    return 0;
+}
+
+int changeMaxNumberOfEntries(CarClass **carEntries, int *maxNumberOfEntries, const int newMaxNumberOfEntries, const bool override) {
+    int choice = 0; // used to make sure the user wants to shrink the max number of entries
+
+    // Call destructors for entries if they will be deleted
+    if (newMaxNumberOfEntries < *maxNumberOfEntries) {
+        if (!override) { // If override is true, then the function won't ask the user about the data loss. Used in loading the data because when loading the data will be overwritten anyway.
+            cout << "Are you sure you want to shrink the max number of entries? Data loss may happen." << endl << "1 - Yes" << endl << "2 - No" << endl;
+            cin >> choice;
+            cout << "Deleting entry ";
+            if (choice == 2) { return 2; }
+        }
+
+
+        int numberOfEntriesToDelete = CarClass::numberOfCarEntries();
+        for (int i = newMaxNumberOfEntries; i < numberOfEntriesToDelete; ++i) { // Destroy objects outside the max number
+            (*carEntries)[i].~CarClass();
+            cout << i + 1 << " ";
+            CarClass::decrementNumberOfCarEntries();
+        }
+        cout << endl;
+    }
+
+    // Realloc new memory
+    CarClass *tempEntries = (CarClass*) realloc(*carEntries, newMaxNumberOfEntries * sizeof(CarClass));
+    if (!tempEntries) { return 1; }
+
+    *carEntries = tempEntries;
+    *maxNumberOfEntries = newMaxNumberOfEntries;
+
+    cout << "Max number of entries changed. Current value is: " << *maxNumberOfEntries << endl;
     return 0;
 }

@@ -5,8 +5,8 @@
 using namespace std;
 
 int main() {
-    int option = 0, errorCode = 0;
-    int maxNumberOfEntries = 2; // default value for initialization
+    int option = 0, errorCode = 0, choiceValue = 0;
+    int maxNumberOfEntries = 1; // default value for initialization
     CarClass *carEntries = (CarClass *)malloc(sizeof(CarClass) * maxNumberOfEntries); // Initializng the carEntries
 
     cout << "1. Load entries from the file" << endl;
@@ -21,8 +21,8 @@ int main() {
             option = 2;
         }
     } else if (option == 2) { // Creating new carEntries with set size
-        cout << "Please enter the number of entries in the database file. Must be more than 3." << endl;
-        while (maxNumberOfEntries < 3) {
+        cout << "Please enter the number of entries in the database file. Must be more than 1." << endl;
+        while (maxNumberOfEntries < 2) {
             cin >> maxNumberOfEntries;
             CarClass *tempEntries = (CarClass*) realloc(carEntries, (maxNumberOfEntries) * sizeof(CarClass));
             carEntries = tempEntries;
@@ -36,6 +36,7 @@ int main() {
 
         switch (option) {
             case 1:
+                cout<< "Listing";
                 if (CarClass::numberOfCarEntries() == 0) {
                     cout << "There are no car entries." << endl;
                     break;
@@ -89,6 +90,26 @@ int main() {
                 if(!errorCode){ printf("Entries loaded successfully.\n"); }
                 else{ printf("Something went wrong...\n"); }
 
+                break;
+
+            case 10:
+                cout << "Current number of entries is: " << maxNumberOfEntries << " How many entries do you want to have? Must be at least 1." << endl;
+                choiceValue = 0;
+                while (choiceValue <= 1) {
+                    cin >> choiceValue;
+                }
+                errorCode = changeMaxNumberOfEntries(&carEntries, &maxNumberOfEntries, choiceValue, false);
+                switch (errorCode) {
+                    case 1:
+                        cout << "Reallocation failed." << endl;
+                        break;
+                    case 2:
+                        cout << "Aborting shrinking. Nothing changed" << endl;
+                        break;
+                    default:
+                        // It worked
+                        break;
+                }
                 break;
 
             case 0:

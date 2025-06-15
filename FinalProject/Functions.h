@@ -24,4 +24,5 @@ void editCarEntry(CarClass *carEntries);
 int saveEntriesToFile(const CarClass *carEntries, int maxNumberOfEntries);
 int loadEntriesFromFile(CarClass **carEntries, int *maxNumberOfEntries);
 
+int changeMaxNumberOfEntries(CarClass **carEntries, int *maxNumberOfEntries, int newMaxNumberOfEntries, bool override);
 #endif //FUNCTIONS_H

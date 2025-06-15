@@ -247,25 +247,29 @@ int saveEntriesToFile(const CarClass *carEntries, const int maxNumberOfEntries) 
 
     return 0;
 }
-int loadEntriesFromFile(CarClass *carEntries, int *maxNumberOfEntries) {
+int loadEntriesFromFile(CarClass **carEntries, int *maxNumberOfEntries) {
     struct carInfo tempCarInfo;
     int numberOfEntries = 0;
     FILE * fptr = nullptr;
     int currentLine = 0;
     char tempChar[128];
 
+    // Open the file
     fptr = fopen("..//EntriesData.txt", "r");
     if (!fptr){ return 1; }
 
-    fgets(tempChar, 128, fptr);
+    fgets(tempChar, 128, fptr); // Read max size from the file
     *maxNumberOfEntries = atoi(tempChar);
-    fgets(tempChar, 128, fptr);
+    fgets(tempChar, 128, fptr); // Read how many entries there are to load
     numberOfEntries = atoi(tempChar);
-    cout << tempChar << endl;
 
-    // for (int i = 0; i < numberOfEntries; ++i) {
-    //     CarClass::incrementNumberOfCarEntries();
-    // }
+    // Set the size of the carEntries to the one in the file
+    CarClass *tempEntries = (CarClass*) realloc(*carEntries, (*maxNumberOfEntries) * sizeof(CarClass));
+    if (!tempEntries){ fclose(fptr); return 2; }
+    *carEntries = tempEntries;
+    cout << "The current max number of entries is " << *maxNumberOfEntries << endl;
+
+    // Read the file and create all objects
     while ((!feof(fptr)) && (currentLine != numberOfEntries)) {
         // Reading the brand
         fgets(tempChar, 128, fptr);
@@ -292,9 +296,7 @@ int loadEntriesFromFile(CarClass *carEntries, int *maxNumberOfEntries) {
         tempChar[strcspn(tempChar, "\n")] = '\0';
         tempCarInfo.carYear = atoi(tempChar);
 
-        cout << tempCarInfo.carBrand << endl;
-
-        new (&carEntries[CarClass::numberOfCarEntries()]) CarClass(tempCarInfo.carBrand, tempCarInfo.carOwner, tempCarInfo.carValue, tempCarInfo.carMileage, tempCarInfo.carYear);
+        new (&(*carEntries)[CarClass::numberOfCarEntries()]) CarClass(tempCarInfo.carBrand, tempCarInfo.carOwner, tempCarInfo.carValue, tempCarInfo.carMileage, tempCarInfo.carYear);
         CarClass::incrementNumberOfCarEntries();
 
         currentLine++;

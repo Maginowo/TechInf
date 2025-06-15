@@ -22,6 +22,6 @@ void removeCarEntry(CarClass *carEntries);
 void editCarEntry(CarClass *carEntries);
 
 int saveEntriesToFile(const CarClass *carEntries, int maxNumberOfEntries);
-int loadEntriesFromFile(CarClass *carEntries, int *maxNumberOfEntries);
+int loadEntriesFromFile(CarClass **carEntries, int *maxNumberOfEntries);
 
 #endif //FUNCTIONS_H

@@ -6,9 +6,28 @@ using namespace std;
 
 int main() {
     int option = 0, errorCode = 0;
-    int maxNumberOfEntries = 3;
+    int maxNumberOfEntries = 2; // default value for initialization
+    CarClass *carEntries = (CarClass *)malloc(sizeof(CarClass) * maxNumberOfEntries); // Initializng the carEntries
 
-    CarClass *carEntries = (CarClass *)malloc(sizeof(CarClass) * maxNumberOfEntries);
+    cout << "1. Load entries from the file" << endl;
+    cout << "2. Initialize new database" << endl;
+    while (option != 1 && option != 2) { cin >> option; }
+
+    if (option == 1) { // Loading data from file
+        errorCode = loadEntriesFromFile(&carEntries, &maxNumberOfEntries);
+        if(!errorCode){ printf("Entries loaded successfully.\n"); }
+        else {
+            printf("Something went wrong... Creating new database.\n");
+            option = 2;
+        }
+    } else if (option == 2) { // Creating new carEntries with set size
+        cout << "Please enter the number of entries in the database file. Must be more than 3." << endl;
+        while (maxNumberOfEntries < 3) {
+            cin >> maxNumberOfEntries;
+            CarClass *tempEntries = (CarClass*) realloc(carEntries, (maxNumberOfEntries) * sizeof(CarClass));
+            carEntries = tempEntries;
+        }
+    }
 
     while (true){
         displayMenu();
@@ -66,7 +85,7 @@ int main() {
                 break;
 
             case 9:
-                errorCode = loadEntriesFromFile(carEntries, &maxNumberOfEntries);
+                errorCode = loadEntriesFromFile(&carEntries, &maxNumberOfEntries);
                 if(!errorCode){ printf("Entries loaded successfully.\n"); }
                 else{ printf("Something went wrong...\n"); }
 

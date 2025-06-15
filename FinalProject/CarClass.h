@@ -14,6 +14,9 @@ private:
     int m_year;
 
 public:
+    static int numberOfCarEntries();
+    static void incrementNumberOfCarEntries();
+    static void decrementNumberOfCarEntries();
     CarClass();
     CarClass(const std::string& brand, const std::string& ownerName, double value = 0, double mileage = 0, int year = 0);
     ~CarClass();
@@ -24,7 +27,13 @@ public:
     void setMileage(double mileage);
     void setYear(int year);
 
-    void printInfo();
+    std::string getBrand() const;
+    std::string getOwnerName() const;
+    double getValue() const;
+    double getMileage() const;
+    int getYear() const;
+
+    void printInfo() const;
 
 };
 

@@ -183,7 +183,7 @@ void removeCarEntry(CarClass *carEntries) {
         }
         CarClass::decrementNumberOfCarEntries();
 
-        cout << "Entry " << removingIndex << " has been removed." << endl;
+        cout << "Entry " << removingIndex + 1 << " has been removed." << endl;
     }
 }
 

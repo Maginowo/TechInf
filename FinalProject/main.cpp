@@ -36,7 +36,6 @@ int main() {
 
         switch (option) {
             case 1:
-                cout<< "Listing";
                 if (CarClass::numberOfCarEntries() == 0) {
                     cout << "There are no car entries." << endl;
                     break;
